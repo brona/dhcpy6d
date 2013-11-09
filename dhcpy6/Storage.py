@@ -58,6 +58,10 @@ class Store(object):
         self.table_leases = "leases"
         self.table_macs_llips = "macs_llips"
         self.table_hosts = "hosts"
+
+        if self.cfg.STORE_PGSQL_TABLE_HOSTS:
+            self.table_hosts = self.cfg.STORE_PGSQL_TABLE_HOSTS
+
         # flag to check if connection is OK
         self.connected = False
 
