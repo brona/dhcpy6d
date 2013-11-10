@@ -496,10 +496,10 @@ def BuildClient(transaction_id):
                                          dns_ttl=cfg.ADDRESSES[address].DNS_TTL)
                             client.Addresses.append(ia)
         # No Default Addresses
-        #else:
+        else:
         #    # use default class if host is unknown
-        #    client.Hostname = Transactions[transaction_id].Hostname
-        #    client.Class = "default_" + Transactions[transaction_id].Interface
+            client.Hostname = Transactions[transaction_id].Hostname
+            client.Class = "default_" + Transactions[transaction_id].Interface
         #    for address in cfg.CLASSES["default_" + Transactions[transaction_id].Interface].ADDRESSES:
         #        a = ParseAddressPattern(cfg.ADDRESSES[address], client, transaction_id)
         #        if a:
