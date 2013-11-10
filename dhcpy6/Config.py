@@ -450,8 +450,9 @@ class Config(object):
         if self.INTERFACES_FILE != "" and os.access(self.INTERFACES_FILE, os.R_OK):
             with open(self.INTERFACES_FILE) as f:
                 for line in f:
-                    if re.match("^[0-9]+$", line) and "vlan"+line not in self.INTERFACE:
-                        self.INTERFACE.append("vlan" + line)
+                    line_clean=line.strip()
+                    if re.match("^[0-9]+$", line) and "vlan"+line_clean not in self.INTERFACE:
+                        self.INTERFACE.append("vlan" + line_clean)
 
         # create default classes for each interface - if not defined
         # derive from default "default" class
