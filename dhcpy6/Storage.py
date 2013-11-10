@@ -13,6 +13,7 @@ from Helpers import *
 import os
 import pwd
 import grp
+import re
 
 
 class QueryQueue(threading.Thread):
