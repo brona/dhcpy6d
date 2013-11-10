@@ -6,7 +6,7 @@
 import sys
 import ConfigParser
 import stat
-import os.path
+import os
 import uuid
 import time
 import shlex
@@ -164,18 +164,10 @@ class Config(object):
         # check log validity
         if self.LOG:
             if self.LOG_FILE != "":
-                if os.path.exists(self.LOG_FILE):
-                    if not (os.path.isfile(self.LOG_FILE) or \
-                       os.path.islink(self.LOG_FILE)):
-                        ErrorExit("%s Logfile '%s' is no file or link." % (msg_prefix, self.LOG_FILE))
-                else:
-                    ErrorExit("%s Logfile '%s' does not exist." % (msg_prefix, self.LOG_FILE))
-                # check ownership of logfile
-                stat = os.lstat(self.LOG_FILE)
-                if not stat.st_uid == pwd.getpwnam(self.USER).pw_uid:
-                    ErrorExit("%s User %s is not owner of logfile '%s'." % (msg_prefix, self.USER, self.LOG_FILE))
-                if not stat.st_gid == grp.getgrnam(self.GROUP).gr_gid:
-                    ErrorExit("%s Group %s is not owner of logfile '%s'." % (msg_prefix, self.GROUP, self.LOG_FILE))
+                if os.access(self.LOG_FILE,os.F_OK)
+                    ErrorExit("%s Logfile '%s' does not exists." % (msg_prefix, self.LOG_FILE))
+                if os.access(self.LOG_FILE,os.W_OK)
+                    ErrorExit("%s Logfile '%s' is not writable." % (msg_prefix, self.LOG_FILE))
             else:
                 ErrorExit("%s No logfile configured." % (msg_prefix))
 
@@ -305,6 +297,12 @@ class Config(object):
         self.STORE_MYSQL_DB = "dhcpy6d"
         self.STORE_MYSQL_USER = "user"
         self.STORE_MYSQL_PASSWORD = "password"
+
+        self.STORE_PGSQL_HOST = "localhost"
+        self.STORE_PGSQL_DB = "dhcpy6d"
+        self.STORE_PGSQL_USER = "user"
+        self.STORE_PGSQL_PASSWORD = "password"
+        self.STORE_PGSQL_TABLE_HOSTS = "hosts"
 
         self.STORE_SQLITE_CONFIG = "config.sqlite"
         self.STORE_SQLITE_VOLATILE = "volatile.sqlite"
