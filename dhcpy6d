@@ -1039,6 +1039,7 @@ class UDPMulticastIPv6(SocketServer.UnixDatagramServer):
 
             # join multicast group
             self.socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_JOIN_GROUP, mgroup)
+            log.info("Listening on interface %s." % (i))
 
         # bind socket to server address
         self.socket.bind(self.server_address)
