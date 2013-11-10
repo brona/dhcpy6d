@@ -45,7 +45,7 @@ case "$1" in
     # 5. adjust file and directory permissions
     chown -R $SERVER_USER:$SERVER_GROUP $SERVER_HOME
     chmod -R 0770 $SERVER_HOME
-    chown $SERVER_USER:$SERVER_GROUP /var/log/dhcpy6d.log
-    chmod 0770 /var/log/dhcpy6d.log
+    chown $SERVER_USER:adm /var/log/dhcpy6d.log
+    chmod 0660 /var/log/dhcpy6d.log
     ;;
 esac
