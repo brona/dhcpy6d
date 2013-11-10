@@ -164,9 +164,9 @@ class Config(object):
         # check log validity
         if self.LOG:
             if self.LOG_FILE != "":
-                if os.access(self.LOG_FILE,os.F_OK):
+                if not os.access(self.LOG_FILE,os.F_OK):
                     ErrorExit("%s Logfile '%s' does not exists." % (msg_prefix, self.LOG_FILE))
-                if os.access(self.LOG_FILE,os.W_OK):
+                if not os.access(self.LOG_FILE,os.W_OK):
                     ErrorExit("%s Logfile '%s' is not writable." % (msg_prefix, self.LOG_FILE))
             else:
                 ErrorExit("%s No logfile configured." % (msg_prefix))
