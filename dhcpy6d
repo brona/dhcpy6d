@@ -495,24 +495,25 @@ def BuildClient(transaction_id):
                                          dns_rev_zone=cfg.ADDRESSES[address].DNS_REV_ZONE,\
                                          dns_ttl=cfg.ADDRESSES[address].DNS_TTL)
                             client.Addresses.append(ia)
-        else:
-            # use default class if host is unknown
-            client.Hostname = Transactions[transaction_id].Hostname
-            client.Class = "default_" + Transactions[transaction_id].Interface
-            for address in cfg.CLASSES["default_" + Transactions[transaction_id].Interface].ADDRESSES:
-                a = ParseAddressPattern(cfg.ADDRESSES[address], client, transaction_id)
-                if a:
-                    ia = ClientAddress(address=a, ia_type=cfg.ADDRESSES[address].IA_TYPE,\
-                                 preferred_lifetime=cfg.ADDRESSES[address].PREFERRED_LIFETIME,\
-                                 valid_lifetime=cfg.ADDRESSES[address].VALID_LIFETIME,\
-                                 category=cfg.ADDRESSES[address].CATEGORY,\
-                                 aclass=cfg.ADDRESSES[address].CLASS,\
-                                 atype=cfg.ADDRESSES[address].TYPE,\
-                                 dns_update=cfg.ADDRESSES[address].DNS_UPDATE,\
-                                 dns_zone=cfg.ADDRESSES[address].DNS_ZONE,\
-                                 dns_rev_zone=cfg.ADDRESSES[address].DNS_REV_ZONE,\
-                                 dns_ttl=cfg.ADDRESSES[address].DNS_TTL)
-                    client.Addresses.append(ia)
+        # No Default Addresses
+        #else:
+        #    # use default class if host is unknown
+        #    client.Hostname = Transactions[transaction_id].Hostname
+        #    client.Class = "default_" + Transactions[transaction_id].Interface
+        #    for address in cfg.CLASSES["default_" + Transactions[transaction_id].Interface].ADDRESSES:
+        #        a = ParseAddressPattern(cfg.ADDRESSES[address], client, transaction_id)
+        #        if a:
+        #            ia = ClientAddress(address=a, ia_type=cfg.ADDRESSES[address].IA_TYPE,\
+        #                         preferred_lifetime=cfg.ADDRESSES[address].PREFERRED_LIFETIME,\
+        #                         valid_lifetime=cfg.ADDRESSES[address].VALID_LIFETIME,\
+        #                         category=cfg.ADDRESSES[address].CATEGORY,\
+        #                         aclass=cfg.ADDRESSES[address].CLASS,\
+        #                         atype=cfg.ADDRESSES[address].TYPE,\
+        #                         dns_update=cfg.ADDRESSES[address].DNS_UPDATE,\
+        #                         dns_zone=cfg.ADDRESSES[address].DNS_ZONE,\
+        #                         dns_rev_zone=cfg.ADDRESSES[address].DNS_REV_ZONE,\
+        #                         dns_ttl=cfg.ADDRESSES[address].DNS_TTL)
+        #            client.Addresses.append(ia)
 
         return client
 
