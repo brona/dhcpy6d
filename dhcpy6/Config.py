@@ -7,6 +7,7 @@ import sys
 import ConfigParser
 import stat
 import os
+import re
 import uuid
 import time
 import shlex
@@ -245,6 +246,7 @@ class Config(object):
         # default settings
         # Server cfg.INTERFACE + addresses
         self.INTERFACE = "eth0"
+        self.INTERFACES_FILE = ""
         self.MCAST = "ff02::1:2"
         self.PORT = "547"
         self.ADDRESS = "2001:db8::1"
@@ -443,6 +445,13 @@ class Config(object):
 
         # get interfaces as list
         self.INTERFACE = ListifyOption(self.INTERFACE)
+
+        # get content of interfaces file
+        if self.INTERFACES_FILE != "" and os.access(self.INTERFACES_FILE, os.R_OK):
+            with open(self.INTERFACES_FILE) as f:
+                for line in f:
+                    if re.match("^[0-9]+$", line) and "vlan"+line not in self.INTERFACE:
+                        self.INTERFACE.append("vlan" + line)
 
         # create default classes for each interface - if not defined
         # derive from default "default" class
