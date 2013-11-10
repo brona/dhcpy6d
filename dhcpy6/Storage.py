@@ -312,12 +312,9 @@ class Store(object):
         get client config from db and build the appropriate config objects and indices
         """
         if self.Transactions[transaction_id].ClientConfigDB == None:
-            query = "SELECT hostname, mac, duid, class, address, id FROM %s WHERE \
-                    hostname = '%s' OR mac = '%s' OR duid = '%s'" % \
+            query = "SELECT hostname, mac, duid, class, address, id FROM %s WHERE mac = '%s'" % \
                     (self.table_hosts,\
-                     self.Transactions[transaction_id].FQDN,\
-                     self.Transactions[transaction_id].MAC,\
-                     self.Transactions[transaction_id].DUID)
+                     self.Transactions[transaction_id].MAC)
             answer = self.query(query)
 
             # add client config which seems to fit to transaction
